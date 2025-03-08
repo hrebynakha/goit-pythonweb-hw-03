@@ -85,9 +85,14 @@ class HttpHandler(BaseHTTPRequestHandler):
         data = json_handler.load_data()
         rows_tmp = Template(
             """
-        {% for timestamp, info in data.items() %}
-           <li>{{ timestamp }}: {{info['username']}} {{info['message']}}</li>
-        {% endfor %}
+        <h1><a href="/">Home</a></h1>
+        {% if data %}
+            {% for timestamp, info in data.items() %}
+            <li>{{ timestamp }}: {{info['username']}} {{info['message']}}</li>
+            {% endfor %}
+        {% else %}
+        <h2>Not messages yet.</h2>
+        {% endif %}
         """
         )
         self.send_response(status)
