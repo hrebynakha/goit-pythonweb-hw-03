@@ -8,6 +8,7 @@ import json
 from datetime import datetime
 from jinja2 import Template
 
+STORAGE_PATH = "storage/data.json"
 
 class JsonDataHandler:
     """Class for work with json as pickle"""
@@ -40,7 +41,7 @@ class HttpHandler(BaseHTTPRequestHandler):
         elif pr_url.path == "/message":
             self.send_html_file("message.html")
         elif pr_url.path == "/read":
-            self.send_json("storage/data.json")
+            self.send_json(STORAGE_PATH)
         else:
             if pathlib.Path().joinpath(pr_url.path[1:]).exists():
                 self.send_static()
@@ -50,10 +51,9 @@ class HttpHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         """Process POST request"""
         data = self.rfile.read(int(self.headers["Content-Length"]))
-        print(data)
         data_parse = urllib.parse.unquote_plus(data.decode())
         data_dict = dict([el.split("=") for el in data_parse.split("&")])
-        json_handler = JsonDataHandler("storage/data.json")
+        json_handler = JsonDataHandler(STORAGE_PATH)
         json_handler.save_data({str(datetime.now()): data_dict})
         self.send_response(302)
         self.send_header("Location", "/")
