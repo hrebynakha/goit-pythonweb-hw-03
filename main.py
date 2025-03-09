@@ -107,8 +107,14 @@ class HttpHandler(BaseHTTPRequestHandler):
         with open(filename, "rb") as fd:
             self.wfile.write(fd.read())
 
-    def send_template(self, template_path, data=None, filename=None, status=200):
-        """Send html file as Jinja2 template with data"""
+    def send_template(
+        self,
+        template_path,
+        status=200,
+        data=None,
+        filename=None,
+    ):
+        """Send html file as Jinja2 template with data or json file data"""
         if not data:
             data = JsonDataHandler(filename).load_data()
         self.send_response(status)
