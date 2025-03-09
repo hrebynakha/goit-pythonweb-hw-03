@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav
+        class="navbar navbar-expand navbar-dark bg-dark"
+        aria-label="Second navbar example"
+      >
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="/logo.png" alt="logo" />
+          </a>
+          <div class="collapse navbar-collapse" id="navbarsExample02">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/message.html">Send message</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/read">Read messages</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="container">
+      <section class="output mt-2">
+        <p>
+          <a
+            href="/read?format=json"
+            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+            >Json Format</a
+          >
+        </p>
+
+        {% if data %} {% for timestamp, info in data.items() %}
+        <div class="card mb-1">
+          <div class="card-header d-flex justify-content-between">
+            <h5>@{{info['username']}}</h5>
+            <h6>{{ timestamp }}</h6>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>{{info['message']}}</p>
+            </blockquote>
+          </div>
+        </div>
+        {% endfor %} {% else %}
+        <div class="alert alert-warning text-center" role="alert">
+          <h4>Not messages yet</h4>
+        </div>
+        {% endif %}
+      </section>
+    </main>
+  </body>
+</html>

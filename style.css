@@ -16,3 +16,9 @@ body {
 textarea {
   height: 250px;
 }
+
+.output {
+  background-color: #ebddcf;
+  border-radius: 12px;
+  padding: 12px;
+}
